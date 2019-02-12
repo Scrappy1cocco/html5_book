@@ -16,15 +16,25 @@ function randOperation() {
 	var text = document.getElementById('text');
 	var phrase = "";
 
-	if (rand2 == 0 || rand2 == 3) {
-		phrase = word0[rand0] + word1[rand1] + word2[rand2] + word3[rand3];
-	} else if (rand2 == 1) {
-		phrase = word0[rand0] + word1[rand1] + word2[rand2] + word4[rand4];
-	} else {
-		phrase = word0[rand0] + word1[rand1] + word2[rand2] + word3[rand3].slice(2);
+	function SelfCheck() {
+		if (rand0 == rand3 || rand0 == rand4) {
+			return false;
+		}
+		return true;
 	}
 
-	text.innerHTML = phrase;
+	if (SelfCheck()) {
+
+		if (rand2 == 0 || rand2 == 3) {
+			phrase = word0[rand0] + word1[rand1] + word2[rand2] + word3[rand3];
+		} else if (rand2 == 1) {
+			phrase = word0[rand0] + word1[rand1] + word2[rand2] + word4[rand4];
+		} else {
+			phrase = word0[rand0] + word1[rand1] + word2[rand2] + word3[rand3].slice(2);
+		}
+
+		text.innerHTML = phrase;
+	} else randOperation();
 }
 
 window.onload = randOperation;
