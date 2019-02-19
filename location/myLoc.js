@@ -35,6 +35,8 @@ function displayLocation(position) {
 
 	if (map == null) {
 		showMap(position.coords);
+	} else {
+		scrollMapToPosition(position.coords);
 	}
 }
 
@@ -120,4 +122,14 @@ function clearWatch() {
 		navigator.geolocation.clearWatch(watchId);
 		watchId = null;
 	}
+}
+
+function scrollMapToPosition(coords) {
+	var latitude = coords.latitude;
+	var longitude = coords.longitude;
+	var latlong = new google.maps.LatLng(latitude, longitude);
+
+	map.panTo(latlong);
+
+	addMarker(map, latlong, "Your new location", "You moved to: " + latitude + ", " + longitude);
 }
