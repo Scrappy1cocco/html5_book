@@ -16,6 +16,10 @@ function previewHandler() {
 		for (var squares = 0; squares < 20; squares++) {
 			drawSquare(canvas, context);
 		}
+	} else if (shape == 'circles') {
+		for (var circles = 0; circles < 20; circles++) {
+			drawCircles(canvas, context);
+		}
 	}
 }
 
@@ -28,6 +32,33 @@ function drawSquare(canvas, context) {
 	context.fillRect(x, y, w, w);
 }
 
+function drawCircles(canvas, context) {
+	var radius = Math.floor(Math.random() * 40);
+	var x = Math.floor(Math.random() * canvas.width);
+	var y = Math.floor(Math.random() * canvas.height);
+
+	context.beginPath();
+	context.arc(x, y, radius, 0, degreesToRadians(360), true);
+
+	context.fillStyle = "lightblue";
+	context.fill();
+}
+
+function updateTweets(tweets) {
+	var tweetsSelection = document.getElementById('tweets');
+
+	for (var i = 0; i < tweets.length; i++) {
+		var tweet = tweets[i];
+		var option = document.createElement('option');
+		option.text = tweet.text;
+		option.value = tweet.text.replace("\"", "'");
+
+		tweetsSelection.options.add(option);
+	}
+
+	tweetsSelection.selectedIndex = 0;
+}
+
 function fillBackgroundColor(canvas, context) {
 	var selectObj = document.getElementById('backgroundColor');
 	var index = selectObj.selectedIndex;
@@ -35,4 +66,8 @@ function fillBackgroundColor(canvas, context) {
 
 	context.fillStyle = bgColor;
 	context.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function degreesToRadians(degrees) {
+	return (degrees * Math.PI)/180;
 }
